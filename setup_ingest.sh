@@ -34,7 +34,7 @@ pip3 install -r "$FOLDER/requirements.txt"
 cd "$FOLDER/mongodb"
 # Step 6: Run the Python script
 echo "Running the Python script..."
-python3 "$FOLDER/$PYTHON_SCRIPT"
+python3 "$PYTHON_SCRIPT"
 
 # Optional: Deactivate the virtual environment
 echo "Deactivating the virtual environment..."
