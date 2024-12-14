@@ -18,7 +18,7 @@ sudo systemctl enable postgresql
 sudo -u postgres psql <<EOF
 
 -- Create a new role named 'admin'
-CREATE ROLE admin WITH LOGIN PASSWORD 'your_secure_password' CREATEDB CREATEROLE;
+CREATE ROLE admin WITH LOGIN PASSWORD adminadmin123 CREATEDB CREATEROLE;
 
 -- Create a new database named 'traffic_db'
 CREATE DATABASE traffic_db;
@@ -27,7 +27,7 @@ CREATE DATABASE traffic_db;
 GRANT ALL PRIVILEGES ON DATABASE traffic_db TO admin;
 
 -- Create user 'user_report' with password
-CREATE USER user_report WITH PASSWORD 'user_password';
+CREATE USER user_report WITH PASSWORD userreport123;
 
 -- Connect to the database
 \c traffic_db
