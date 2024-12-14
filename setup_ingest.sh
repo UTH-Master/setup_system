@@ -5,6 +5,8 @@ FOLDER="ingest_data"
 REPO_URL="https://github.com/UTH-Master/data_pipeline.git"
 PYTHON_SCRIPT="main.py" # The Python script you want to run
 
+cd /home/km2401
+
 # Step 1: Check for the virtual environment, create if it does not exist
 if [ ! -d "env" ]; then
     echo "Creating Python3 virtual environment..."
