@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to install PostgreSQL, create a 'report_traffic' table, and set up an 'admin' role on Ubuntu
+# Script to install PostgreSQL, create a 'report_traffic' table, set up 'admin' role, and user permissions on Ubuntu
 
 # Update system repositories
 sudo apt update
@@ -23,8 +23,11 @@ CREATE ROLE admin WITH LOGIN PASSWORD 'your_secure_password' CREATEDB CREATEROLE
 -- Create a new database named 'traffic_db'
 CREATE DATABASE traffic_db;
 
--- Set permissions: Allow 'admin' to access 'traffic_db' database
+-- Grant permissions: Allow 'admin' to access 'traffic_db' database
 GRANT ALL PRIVILEGES ON DATABASE traffic_db TO admin;
+
+-- Create user 'user_report' with password
+CREATE USER user_report WITH PASSWORD 'user_password';
 
 -- Connect to the database
 \c traffic_db
@@ -49,7 +52,10 @@ CREATE TABLE report_traffic (
     date DATE
 );
 
+-- Grant SELECT, INSERT, UPDATE, DELETE permissions to 'user_report' on 'report_traffic'
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE report_traffic TO user_report;
+
 EOF
 
 # Print installation status
-echo "PostgreSQL, report_traffic table, and admin role setup completed successfully."
+echo "PostgreSQL, report_traffic table, admin role, and user_report permissions setup completed successfully."
