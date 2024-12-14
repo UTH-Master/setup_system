@@ -3,7 +3,7 @@
 # Define the folder to remove and the git repository
 FOLDER="ingest_data"
 REPO_URL="https://github.com/UTH-Master/data_pipeline.git"
-PYTHON_SCRIPT="main.py" # The Python script you want to run
+PYTHON_SCRIPT="mongodb/autosaveytblivestream-mongodb.py" # The Python script you want to run
 
 cd /home/km2401
 
