@@ -3,7 +3,7 @@
 # Define the folder to remove and the git repository
 FOLDER="ingest_data"
 REPO_URL="https://github.com/UTH-Master/data_pipeline.git"
-PYTHON_SCRIPT="mongodb/autosaveytblivestream-mongodb.py" # The Python script you want to run
+PYTHON_SCRIPT="autosaveytblivestream-mongodb.py" # The Python script you want to run
 
 cd /home/km2401
 
@@ -31,6 +31,7 @@ git clone $REPO_URL $FOLDER
 echo "Installing dependencies..."
 pip3 install -r "$FOLDER/requirements.txt"
 
+cd "$FOLDER/mongodb"
 # Step 6: Run the Python script
 echo "Running the Python script..."
 python3 "$FOLDER/$PYTHON_SCRIPT"
