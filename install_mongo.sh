@@ -3,9 +3,14 @@
 # MongoDB Configuration Variables
 DOMAIN="tuanhoangdinh.ddns.net"  # Replace with your DDNS domain
 PORT="27017"                     # MongoDB default port
-MONGO_USER="admin"               # MongoDB username
-MONGO_PASSWORD="adminsuper123"   # MongoDB password
+MONGO_USER="admin"               # MongoDB admin username
+MONGO_PASSWORD="adminsuper123"   # MongoDB admin password
 MONGO_DATABASE="example_db"      # MongoDB database name
+
+# Additional user details
+NEW_USER="km2401"
+NEW_PASSWORD="km2401"
+NEW_ROLE="readWrite"
 
 # Function to resolve the domain to an IP address
 resolve_domain() {
@@ -41,15 +46,24 @@ configure_mongodb() {
     sudo systemctl restart mongod
 }
 
-# Function to create a MongoDB user
-create_mongodb_user() {
-    echo "Creating MongoDB user..."
+# Function to create MongoDB users
+create_mongodb_users() {
+    echo "Creating MongoDB admin user..."
     mongosh --host $DOMAIN --port $PORT -u $MONGO_USER -p $MONGO_PASSWORD --authenticationDatabase "admin" <<EOF
 use $MONGO_DATABASE
 db.createUser({
   user: "$MONGO_USER",
   pwd: "$MONGO_PASSWORD",
   roles: [ { role: "readWrite", db: "$MONGO_DATABASE" } ]
+})
+EOF
+    echo "Creating additional user: $NEW_USER..."
+    mongosh --host $DOMAIN --port $PORT -u $MONGO_USER -p $MONGO_PASSWORD --authenticationDatabase "admin" <<EOF
+use $MONGO_DATABASE
+db.createUser({
+  user: "$NEW_USER",
+  pwd: "$NEW_PASSWORD",
+  roles: [ { role: "$NEW_ROLE", db: "$MONGO_DATABASE" } ]
 })
 EOF
 }
@@ -96,8 +110,8 @@ main() {
     # Step 5: Verify MongoDB service
     verify_mongodb
 
-    # Step 6: Create a MongoDB user
-    create_mongodb_user
+    # Step 6: Create MongoDB users
+    create_mongodb_users
 
     echo "--------------------------------------------"
     echo "MongoDB is successfully published!"
